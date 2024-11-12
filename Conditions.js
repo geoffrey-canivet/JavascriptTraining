@@ -15,6 +15,12 @@ if (a > b) {
 // Ternaire
 console.log(a > b ? `${a} est plus grand que ${b}` : `${a} est plus petit que ${b}`)
 
+// console.log(
+//     a > b ? `${a} est plus grand que ${b}`
+//     : a < b ? `${a} est plus que petit ${b}`
+//     : a === b ? `${a} est Ã©gal Ã  ${b}` : 'Error'
+// )
+
 // switch
 switch (a) {
     case 1:

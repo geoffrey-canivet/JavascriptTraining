@@ -1,85 +1,124 @@
-// Deconsturing //
+// Destructuring //
 
-// TABLEAUX
-// Destructuring de base
-const voiture = ['voiture1', 'voiture2', 'voiture3', 'voiture4', 'voiture5'];
-const [voiture1, voiture2, voiture3] = voiture;
-console.log(voiture1);
-console.log(voiture2);
-console.log(voiture3);
+// Arrays
+const fruits = ['Pomme', 'Poire', 'Cerise', 'Mangue', 'Avocat'];
+
+// const f1 = fruits[0];
+// const f2 = fruits[1];
+
+// Destructuring basique
+const [ premierFruit, deuxiemeFruit, troisiemeFruit] = fruits;
+console.log('DESTRUCTURINGARRAY ->', premierFruit);
+console.log('DESTRUCTURINGARRAY ->', deuxiemeFruit);
+console.log('DESTRUCTURINGARRAY ->', troisiemeFruit);
 
 // Sauter un index
-const fruits = ['pomme', 'bananne', 'orange', 'poire', 'mangue'];
-const [fruit1, fruit2, , autreFruit] = fruits;
-console.log(fruit1);
-console.log(fruit2);
-console.log(autreFruit);
+const [ premierFruit2, deuxiemeFruit2, , orange] = fruits;
+console.log('DESTRUCTURINGARRAYSKIP ->', premierFruit2);
+console.log('DESTRUCTURINGARRAYSKIP ->', deuxiemeFruit2);
+console.log('DESTRUCTURINGARRAYSKIP ->', orange);
 
-// Valeur par défaut // si index n'existe pas
-const [fruit3, fruit4, fruit5 = 'mangue'] = fruits;
-console.log(fruit3);
-console.log(fruit4);
-console.log(fruit5);
+// Dans le cas ou l'index n'existe pas, on peut donner une valeur par defaut
+const voitures = ['VW'];
+const [ premiereVoiture, deuxiemeVoiture = 'Volvo'] = voitures;
+console.log('DESTRUCTURINGDEFAUT ->', premiereVoiture);
+console.log('DESTRUCTURINGDEFAULT ->', deuxiemeVoiture)
 
-// rest operator
-const [fruit6, ...autresFruits] = fruits;
-console.log(fruit6);
-console.log(autresFruits);
+// Utilisation du ... (rest operator) dans du destructuring
+const [premierFruit3, deuxiemeFruit3, ...autresFruits] = fruits;
+console.log('DESTRUCTURINGREST ->', autresFruits);
 
-// OBJETS
-const personne = {
-    nom: 'Geoffrey',
-    prenom: 'Reader',
-    age: 20
+
+
+// Objects
+const utilisateur = {
+    nom: 'Gavin',
+    vieuxDe: 30,
+    ville: 'Namur'
 };
 
 // Destructuring basique
-const { nom, prenom } = personne;
-console.log(nom);
-console.log(prenom);
+const {ville, nom, vieuxDe} = utilisateur;
+console.log('DESTRUCTURINGOBJECT ->', ville)
+console.log('DESTRUCTURINGOBJECT ->', vieuxDe)
+console.log('DESTRUCTURINGOBJECT ->', nom)
 
-// Renomer variable pendant destructuring
-const { nom: prenom2, prenom: nom2 } = personne;
-console.log(nom2);
-console.log(prenom2);
+// Renommer les variables pendant le destructuring
+const { nom: nomFamille, vieuxDe: age} = utilisateur;
+console.log('DESTRUCTURINGRENAMING ->', nomFamille)
+console.log('DESTRUCTURINGRENAMING ->', age)
 
-// Valeur par défaut si clé n'existe pas, sinon est ecrasé par valeur
-const { age: age2 = 18 } = personne;
-console.log(age2);
+// Dans le cas ou la cle n'existe pas, on peut donner une valeur par defaut
+const { nom: prenom, numero = 'Non spÃ©cifiÃ©'} = utilisateur;
+console.log('DESTRUCTURINGOBJECTDEFAULT ->', numero);
 
-
-// Destructuring objet imbriqué
-const personne22 = {
-    nom: 'Geoffrey',
-    prenom: 'Reader',
-    age: 20,
-    adresse: {
-        ville: 'Paris',
-        codePostal: 75000
+// Destructuring d'objects imbriques
+const utilisateur2 = {
+    name: 'Alexandre',
+    address: {
+        city: 'Namur',
+        zipCode: 5000
     }
-};
-const { adresse: { ville, codePostal } } = personne22;
-console.log(ville);
-console.log(codePostal);
-
-// destructuring dans les parametre d'une fonction
-const afficherPersonne = ({ nom, prenom, age }) => {
-    console.log(`${nom} ${prenom} ${age}`);
 }
-afficherPersonne(personne);
 
-// Spread operator
-const users = [
-    { id: 1, nom: 'Geoffrey', prenom: 'Reader', age: 20, alives: true },
-    { id: 2, nom: 'Jacques', prenom: 'Reader', age: 20, alives: true },
-    { id: 3, nom: 'Louis', prenom: 'Reader', age: 20, alives: true },
-    { id: 4, nom: 'Jean', prenom: 'Reader', age: 20, alives: true }
+const { name, address: {city, zipCode} } = utilisateur2;
+console.log('DESTRUCTURINGIMBRIQUE ->', city)
+console.log('DESTRUCTURINGIMBRIQUE ->', zipCode)
+
+
+// Destructuring dans les parametres d'une fonction
+const presenteToi = ({ ville, nom, vieuxDe}) => {
+    console.log('DESTRUCTURINGFONCTION ->', `Bonjour, je suis ${nom}, j\'ai ${vieuxDe} ans et je suis de ${ville}`)
+}
+
+presenteToi(utilisateur)
+
+// Spread operator (...)
+const persons = [
+    {
+        id: 1,
+        nom: 'Marco Polo',
+        alive: false
+    },
+    {
+        id: 2,
+        nom: 'Luke skywalker',
+        alive: false
+    },
+    {
+        id: 3,
+        nom: 'Shadowheart',
+        alive: true
+    }
 ];
 
-const [user1, user2] = users;
-console.log(user1);
-console.log(user2);
-const [user3, user4, ...autresUsers] = users;
-console.log(user3);
-console.log(user4);
-console.log(autresUsers);
+const [person1, person2, person3] = persons;
+console.log(person1)
+console.log(person2)
+console.log(person3)
+
+const { id: idP1, nom: nomP1 } = person1;
+console.log(idP1, nomP1)
+
+const allPersonsAlive = persons.map(person => {
+    if (!person.alive) {
+        return {...person, alive: true}
+    }
+    return person
+})
+
+console.log(allPersonsAlive)
+
+const legumes = ['Tomate', 'Courgette', 'Carotte'];
+
+// Creation de copie d'un array avec le spread
+const copieLegumes = [...legumes];
+console.log(copieLegumes)
+
+// Concatenation
+const fruitsLegumes = [...fruits, ...legumes];
+console.log(fruitsLegumes)
+
+// Concatenation de valeurs primitives et d'un tableau
+const fruitsPlusLegumes = ['Pomme', ...legumes, 'Banane', 'Melon'];
+console.log(fruitsPlusLegumes)

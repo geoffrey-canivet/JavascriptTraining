@@ -21,18 +21,21 @@ console.log(delete obj.job)
 console.log(obj.age)
 console.log(obj["age"])
 
-// créer un objet a partir d'un tableau
+// Declarer un object a partir d'entrees de tableau
 const entries = [
-    ['name', 'Toto2'],
-    ['age', 30],
-    ['job', 'Chauffeur']
-]
-const obj2 = Object.fromEntries(entries)
-console.log(obj2)
+    ["name", "Pin"],
+    ["age", 23],
+    ["city", "Charleroi"],
+];
 
-// Récuperer les clés
-console.log(Object.keys(obj))
+const obj2 = Object.fromEntries(entries);
+console.log("FROMENTRIES ->", obj2); // Resultat : {name: "Pin", age: 23, city: "Charleroi"}
 
-// Récuperer les vleurs
-console.log(Object.values(obj))
+// Recuperation des keys d'un object
+const keys = Object.keys(obj2);
+console.log("KEYS ->", keys); // Resultat : ["name", "age", "city"]
+
+// Recuperation des values d'un object
+const values = Object.values(obj2);
+console.log("VALUES ->", values); // Resultat : ["Pin", 23, "Charleroi"]
 

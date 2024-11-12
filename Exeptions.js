@@ -1,31 +1,73 @@
-// Exeptions //
+// Exceptions //
 
-function retirerArgent(montant) {
-    const solde = 1000; // Solde initial du compte
-
-    try {
-        // Vérification du type de montant
-        if (typeof montant !== 'number') {
-            throw new Error("Le montant doit être un nombre.");
-        }
-
-        // Vérification du montant suffisant
-        if (montant > solde) {
-            throw new Error("Fonds insuffisants pour effectuer ce retrait.");
-        }
-
-        // Si tout est en ordre, effectuer le retrait
-        console.log(`Retrait de ${montant} € effectué. Nouveau solde : ${solde - montant} €`);
-    } catch (error) {
-        // En cas d'erreur, afficher le message de l'erreur
-        console.error("Erreur :", error.message);
-    } finally {
-        // Code dans le bloc finally qui s'exécute dans tous les cas
-        console.log("Merci d'avoir utilisé notre service bancaire.");
+const checkAge = (age) => {
+    if (age < 18) {
+        throw new Error('La vente d\'alcool est interdite aux mineurs.')
+    } else if (typeof age !== 'number') {
+        throw new TypeError("L'age doit etre un nombre")
     }
+
+    console.log('AccÃ¨s Ã  la vente autorisÃ©.');
 }
 
-// Test du code
-retirerArgent(200);    // Cas normal
-retirerArgent(1500);   // Cas de fonds insuffisants
-retirerArgent("500");  // Cas de type incorrect
+try {
+    checkAge(15)
+} catch (err) {
+    console.error(`Erreur recuperee : ${err}`)
+} finally {
+    console.log("Ok, les verifications sont terminees.")
+}
+
+try {
+    checkAge('Vingt')
+} catch (err) {
+    console.error(`Erreur rÃ©cupÃ©rÃ©e : ${err}`)
+}
+
+try {
+    checkAge(25)
+} catch (e) {
+    console.error(`Erreur recuperee : ${e}`)
+} finally {
+    console.log("Ok, les verifications sont terminees")
+}
+
+
+// Exemple concret
+
+const guessNumber = (secret) => {
+    let attempts = 3;
+
+    const askUser = () => {
+        try {
+            let response = parseInt(prompt('Devinez le nombre :'));
+
+            if (isNaN(response)) {
+                throw new TypeError("Vous devez entrer un nombre");
+            }
+
+            if (response === secret) {
+                console.log("Felicitations, vous avez gagne : ", response)
+            }
+
+            attempts--;
+            console.log(`Mauvaise reponse, il vous reste ${attempts} tentative(s)`)
+
+            if (attempts > 0) {
+                askUser()
+            } else {
+                console.log("Vous avez perdu")
+            }
+
+        } catch (error) {
+            console.log(error instanceof Error)
+            console.error(error.message)
+            askUser()
+        } finally {
+            console.log('Partie terminee.')
+        }
+    };
+    askUser()
+};
+
+guessNumber(42)
